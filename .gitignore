@@ -172,3 +172,5 @@ cython_debug/
 
 # Project
 wiki_parser.py
+test.ipynb
+test.py
