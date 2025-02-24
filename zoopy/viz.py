@@ -1,4 +1,4 @@
-import animal
+from zoopy import animal
 
 def plot_classification(animal_for_plotting: animal.Animal) -> None:
     pass

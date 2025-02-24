@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Information</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .left, .right {
+            width: 48%; /* Можно настроить ширину по своему усмотрению */
+        }
+    </style>
+</head>
+<body>
+    <h1>{ANIMAL_NAME}</h1>
+    <hr>
+    <h2>Scientific classification</h2>
+    <div class="container">
+        <div class="left">
+            {CLASSIFICATION}
+        </div>
+        <div class="right">
+            <h2>ID</h2>
+            {ID}
+        </div>
+    </div>
+</body>
+</html>

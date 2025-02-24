@@ -36,17 +36,12 @@ Getting started:
 ```python
 from zoopy import animal
 
-dog = animal.Animal('dog')
-print(dog)
+cat = animal.Animal('кошка', 'ru')
+cat.display()
 ```
 
-ZooPy supports multiple languages and synonyms (based on NLP):
+<div align="center"><img src="img/cat-display.png" width=500px></div>
 
-```python
-for animal_name in ['собака', 'пёс', 'chien', 'hund']:
-    dog = animal.Animal(animal_name)
-    print(dog.name_en)
-```
 
 ZooPy has several pre-trained models
 

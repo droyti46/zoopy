@@ -1,0 +1,11 @@
+{BACK_GREEN}
+==============================
+{ANIMAL_NAME}
+==============================
+{RESET_ALL}
+
+{BACK_YELLOW}{FORE_BLACK}# Scientific classification{RESET_ALL}
+{CLASSIFICATION}
+
+{BACK_YELLOW}{FORE_BLACK}# ID{RESET_ALL}
+{ID}
