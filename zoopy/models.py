@@ -1,3 +1,12 @@
+'''
+=================================
+This module is part of ZOOPY
+https://github.com/droyti46/zoopy
+=================================
+
+It contains interfaces of pre-trained models for predictions
+'''
+
 import numpy as np
 
 class ImageClassification:

@@ -1,11 +1,25 @@
-import IPython.display
+'''
+=================================
+This module is part of ZOOPY
+https://github.com/droyti46/zoopy
+=================================
+
+It contains instruments for work with animals
+
+classes:
+    Animal
+'''
+
 import pandas as pd
-from colorama import init, Fore, Back, Style
 from IPython.display import display, HTML
 
 from zoopy import data
 
-init()
+PATH_TO_DESCRIPTION_TXT = 'zoopy/templates/description.txt'
+PATH_TO_DESCRIPTION_HTML = 'zoopy/templates/description.html'
+
+ID_COLUMNS = ['ITIS', 'NCBI', 'EOL', 'FW']
+ADDITIONAL_COLUMNS = ['name', 'name_en', 'similarity']
 
 class Animal:
 
@@ -35,40 +49,67 @@ class Animal:
     def __init__(self, animal_name: str, lang: str) -> None:
         self.__data_loader = data.DataLoader()
         self.__series: pd.Series = self.__data_loader.get_animal(animal_name, lang)
+
         self.classification = self.__series.drop(
-            ['name', 'language', 'ITIS', 'NCBI', 'EOL', 'FW', 'similarity']
+            ID_COLUMNS + ADDITIONAL_COLUMNS
         ).dropna().to_dict()
 
-    def __str__(self) -> str:
-        return f'''{Back.GREEN}=== {self.__series["name"]} ==={Style.RESET_ALL}
+        self.ids = self.__series[ID_COLUMNS].dropna().to_dict()
 
-{Back.YELLOW}{Fore.BLACK}# Scientific classification{Style.RESET_ALL}
-{"\n".join(f"{Fore.YELLOW}{key}{Style.RESET_ALL}: {value}" for key, value in self.classification.items())}
+    def __get_description(self,
+                          file_path: str,
+                          new_line_tag: str = '\n',
+                          bold_tags: tuple[str] = ('', '')) -> str:
+        
+        '''
+        Returns a string for output
 
-{Back.YELLOW}{Fore.BLACK}# ID{Style.RESET_ALL}
-{"\n".join(f"{Fore.YELLOW}{val}{Style.RESET_ALL}: {self.__series[val]}" for val in ["ITIS", "NCBI", "EOL", "FW"])}
-'''
-    
-    def display(self) -> None:
-        with open('zoopy/templates/description.html', 'r') as f:
+        Parameters:
+            file_path (str): path to file
+            new_line_tag (str), optinonal: tag for new_line (<br> in HTML or \n in String)
+            bold_tags (tuple[str]), optional:
+                tag for bold words (('<b>', '</b>') in HTML)
+        '''
+
+        with open(file_path, 'r') as f:
             description = f.read()
+        
+        bold_tag1, bold_tag2 = bold_tags
 
-        classification_str = '<br>'.join(
-            f'<span style="color: yellow">{key}</span>: {value}' for key, value in self.classification.items()
+        # Extraction text features
+        classification_str = new_line_tag.join(
+            f'{bold_tag1}{key}{bold_tag2}: {val}' for key, val in self.classification.items()
         )
-        id_str = '<br>'.join(
-            f'<span style="color: yellow">{val}</span>: {self.__series[val]}' for val in ["ITIS", "NCBI", "EOL", "FW"]
+        id_str = new_line_tag.join(
+            f'{bold_tag1}{key}{bold_tag2}: {val}' for key, val in self.ids.items()
         )
 
+        # Template substitution
         description = description \
-                .replace('{ANIMAL_NAME}', self.__series["name"]) \
+                .replace('{ANIMAL_NAME}', self.__series['name']) \
                 .replace('{CLASSIFICATION}', classification_str) \
                 .replace('{ID}', id_str)
         
+        return description
+
+    def __str__(self) -> str:
+        description = self.__get_description(PATH_TO_DESCRIPTION_TXT)
+        return description
+    
+    def display(self) -> None:
+        '''Display animal in Jupyter cell'''
+
+        description = self.__get_description(
+            PATH_TO_DESCRIPTION_HTML,
+            '<br>',
+            ('<b>', '</b>')
+        )
         display(HTML(description))
 
     def to_series(self) -> pd.Series:
+        '''Converting features to pandas.Series type'''
         return self.__series
 
     def to_dict(self) -> dict:
+        '''Converting features to dict type'''
         return self.__series.to_dict()

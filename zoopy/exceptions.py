@@ -1,10 +1,8 @@
-class BaseException(Exception):
-    def __init__(self, message):
-        self.message = message
+'''
+=================================
+This module is part of ZOOPY
+https://github.com/droyti46/zoopy
+=================================
 
-    def __str__(self):
-        return self.message
-
-class ParseError(BaseException):
-    def __init__(self, message):
-        super().__init__(message)
+It contains exceptions
+'''
