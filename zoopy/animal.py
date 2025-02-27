@@ -50,6 +50,8 @@ class Animal:
         self.__data_loader = data.DataLoader()
         self.__series: pd.Series = self.__data_loader.get_animal(animal_name, lang)
 
+        self.name = self.__series['name']
+
         self.classification = self.__series.drop(
             ID_COLUMNS + ADDITIONAL_COLUMNS
         ).dropna().to_dict()
