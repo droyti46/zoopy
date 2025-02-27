@@ -37,51 +37,7 @@ cat = animal.Animal('кошка', 'ru')
 cat.display()
 ```
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animal Information</title>
-    <style>
-        .container {
-            display: flex;
-            justify-content: space-between;
-        }
-        .left, .right {
-            width: 48%;
-        }
-    </style>
-</head>
-<body>
-    <h1>Кошка</h1>
-    <hr>
-    <h2>Scientific classification</h2>
-    <div class="container">
-        <div class="left">
-            <b>domain</b>: Эукариоты<br>
-            <b>kingdom</b>: Животные<br>
-            <b>subkingdom</b>: Эуметазои<br>
-            <b>phylum</b>: Хордовые<br>
-            <b>subphylum</b>: Позвоночные<br>
-            <b>infraphylum</b>: Челюстноротые<br>
-            <b>superclass</b>: Четвероногие<br>
-            <b>class</b>: Млекопитающие<br>
-            <b>order</b>: Хищные<br>
-            <b>suborder</b>: Кошкообразные<br>
-            <b>superfamily</b>: Feloidea<br>
-            <b>family</b>: Кошачьи<br>
-            <b>subfamily</b>: Малые кошки<br>
-            <b>genus</b>: Кошки<br>
-            <b>species</b>: Кошка<br>
-        </div>
-        <div class="right">
-            <h2>ID</h2>
-            <b>FW</b>: 231413
-        </div>
-    </div>
-</body>
-</html>
+<div align="center"><img src="img/cat-display.png" width=500px></div>
 
 \
 ZooPy has several pre-trained models
