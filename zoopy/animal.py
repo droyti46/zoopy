@@ -6,14 +6,20 @@ https://github.com/droyti46/zoopy
 
 It contains instruments for work with animals
 
+functions:
+    get_all_by(...) -> zoopy.animal.Animal
+
 classes:
     Animal
 '''
 
 import pandas as pd
 from IPython.display import display, HTML
+from tqdm import tqdm
 
 from zoopy import data
+
+tqdm.pandas()
 
 PATH_TO_DESCRIPTION_TXT = 'zoopy/templates/description.txt'
 PATH_TO_DESCRIPTION_HTML = 'zoopy/templates/description.html'
@@ -35,10 +41,10 @@ class Animal:
             Displays information about the animal in the Jupyter cell
         
         to_series() -> pd.Series:
-            Converting features to the pandas.Series type
+            Converts features to the pandas.Series type
         
         to_dict() -> dict:
-            Converting features to the dict type
+            Converts features to the dict type
 
     Examples:
         >>> from zoopy.animal import Animal
@@ -46,9 +52,10 @@ class Animal:
         >>> print(animal.class_)
     '''
 
-    def __init__(self, animal_name: str, lang: str) -> None:
+    def __init__(self, animal_name: str, lang: str, accurate: bool = False) -> None:
+        # Load data
         self.__data_loader = data.DataLoader()
-        self.__series: pd.Series = self.__data_loader.get_animal(animal_name, lang)
+        self.__series: pd.Series = self.__data_loader.get_animal(animal_name, lang, accurate)
 
         self.name = self.__series['name']
 
@@ -71,6 +78,9 @@ class Animal:
             new_line_tag (str), optinonal: tag for new_line (<br> in HTML or \n in String)
             bold_tags (tuple[str]), optional:
                 tag for bold words (('<b>', '</b>') in HTML)
+        
+        Return:
+            description (str): description of animal in text form
         '''
 
         with open(file_path, 'r') as f:
@@ -115,3 +125,12 @@ class Animal:
     def to_dict(self) -> dict:
         '''Converting features to dict type'''
         return self.__series.to_dict()
+
+def get_all_by(attribute: str, value: str, lang: str) -> Animal:
+
+
+    data_loader: data.DataLoader = data.DataLoader()
+    animals_data = data_loader.get_all_by(attribute, value, lang)
+
+    #animals = [Animal(animal_['name'], lang, True) for animal_ in animals_data.iloc]
+    return animals_data['name'].progress_apply(lambda name: Animal(name, lang, True)).to_list()

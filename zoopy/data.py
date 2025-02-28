@@ -92,14 +92,42 @@ class DataLoader:
 
     def __init__(self):
         self.datasets: dict[str: pd.DataFrame] = {lang: None for lang in SUPPORTED_LANGUAGES}
+    
+    def __check_and_load_dataset(self, lang: str) -> None:
+        if self.datasets[lang] is None:
+            self.datasets[lang] = self.load_animals_dataset(lang)
 
     def load_animals_dataset(self, lang: str = 'ru') -> pd.DataFrame:
         return pd.read_csv(ANIMALS_DATASET_PATH.format(lang))
+    
+    def get_all_by(
+            self,
+            column: str,
+            value: str,
+            lang: str
+        ) -> pd.DataFrame:
+
+        '''
+        Returns filtered values from dataset
+
+        Parameters:
+            column: column for search
+            value: value for filter
+            lang: language of returned data
+        '''
+
+        self.__check_and_load_dataset(lang)
+
+        data: pd.DataFrame = self.datasets[lang]
+        found = data[data[column].str.lower() == value.lower().strip()]
+
+        return found
 
     def get_animal(
             self,
             animal_name: str,
             lang: str,
+            accurate: bool = False
         ) -> pd.Series:
 
         '''
@@ -110,11 +138,13 @@ class DataLoader:
             animal_name: animal's name (in original language or English)
             lang: language of returned data
         '''
-        
-        if self.datasets[lang] is None:
-            self.datasets[lang] = self.load_animals_dataset(lang)
 
+        self.__check_and_load_dataset(lang)
         data: pd.DataFrame = self.datasets[lang]
+
+        if accurate:
+            return data[data['name'] == animal_name].iloc[0]
+
         found = sort_dataframe_by_levenshtein(data, 'name', animal_name)
         
         return found.iloc[0]

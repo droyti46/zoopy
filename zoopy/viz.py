@@ -5,6 +5,9 @@ https://github.com/droyti46/zoopy
 =================================
 
 It contains instruments for data vizualization
+
+functions:
+    plot_classification(...)
 '''
 
 import matplotlib.pyplot as plt
@@ -17,8 +20,8 @@ def plot_classification(animal_for_plotting: animal.Animal) -> None:
     '''
     Plots a hierarchical classification graph with rectangular nodes and arrows.
     
-    Args:
-        classification (dict): A dictionary representing the classification hierarchy.
+    Parameters:
+        animal_for_plotting (zoopy.animal.Animal): an animal for plot classification
     '''
 
     classification = animal_for_plotting.classification
@@ -27,12 +30,15 @@ def plot_classification(animal_for_plotting: animal.Animal) -> None:
     # Vertical positions for nodes
     node_height = 0.4
     node_width = 2.5
-    arrow_length = 0.2  # Space between nodes for arrows
+    # Space between nodes for arrows
+    arrow_length = 0.2
 
     # Draw nodes and arrows
-    for i, name in enumerate(classification.values()):
+    for i, taxon_info in enumerate(classification.items()):
+        taxon, name = taxon_info
         # Vertical position (top to bottom)
         y = -i * (node_height + arrow_length)
+
         # Draw rectangle
         rect = Rectangle(
             (-node_width / 2, y - node_height / 2),
@@ -45,11 +51,11 @@ def plot_classification(animal_for_plotting: animal.Animal) -> None:
         ax.add_patch(rect)
 
         # Add text
-        ax.text(0, y, name, ha='center', va='center', fontsize=10, fontfamily='sans-serif')
+        ax.text(0, y + 0.05, taxon, ha='center', va='center', fontsize=10, fontfamily='sans-serif', weight='bold')
+        ax.text(0, y - 0.05, name, ha='center', va='center', fontsize=10, fontfamily='sans-serif')
 
         # Draw arrow (if not the last node)
         if i < len(classification) - 1:
-            # Position of the next node
             next_y = -(i + 1) * (node_height + arrow_length) 
             ax.annotate('', xy=(0, next_y + node_height / 2), xytext=(0, y - node_height / 2),
                         arrowprops=dict(arrowstyle='->', lw=1.5, color='gray'))
