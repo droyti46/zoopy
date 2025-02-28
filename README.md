@@ -41,7 +41,7 @@ cat.display()
 <div align="center"><img src="img/cat-display.png" width=500px></div>
 
 \
-ZooPy has interfaces for several pre-trained models
+ZooPy has interfaces for several pre-trained models, for example, ImageNet
 
 ```python
 import cv2
