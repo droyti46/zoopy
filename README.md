@@ -7,6 +7,7 @@
     <img alt="pandas" src="https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white"/>
     <img alt="scikit-learn" src="https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white"/>
     <img alt="matplotlib" src="https://img.shields.io/badge/matplotlib-11557C?style=for-the-badge&logo=matplotlib&logoColor=white"/>
+    <img alt="torch" src="https://img.shields.io/badge/Torch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white"/>
 </p>
 
 ## Overview
@@ -40,17 +41,27 @@ cat.display()
 <div align="center"><img src="img/cat-display.png" width=500px></div>
 
 \
-ZooPy has several pre-trained models
+ZooPy has interfaces for several pre-trained models
 
 ```python
 import cv2
+
+img = cv2.imread('img/duck.jpg')
+img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+cv2.imshow(img)
+```
+
+<div align="center"><img src="img/duck.jpg" width=500px></div>
+
+```python
 from zoopy import models
 
 model = models.ImageClassification()
-
-img = cv2.imread('turtle.jpeg')
-model.predict(img)
+print(model.predict(img))
 ```
+
+```Output: albatross```
 
 Create different graphics
 
@@ -66,11 +77,16 @@ viz.plot_classification(turtle)
 For more information see [docs](docs/).
 
 ## Dependencies
-- `pandas==2.2.3`
-- `matplotlib==3.9.0`
+- `pandas>=2.2.0`
+- `matplotlib>=3.9.0`
+- `tqdm>=4.66.0`
+- `Levenshtein>=0.26.0`
+- `numpy>=1.26.4`
+- `torch>=2.4.0`
+- `torchvision>=0.19.0`
 
 ## Contact
-Contact me by [Mail](nikitabakutov2008@gmail.com) or [Telegram](https://t.me/droyti).
+Contact me by [Mail](mailto:nikitabakutov2008@gmail.com) or [Telegram](https://t.me/droyti).
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
