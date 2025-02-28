@@ -109,7 +109,7 @@ class Animal:
         return description
     
     def display(self) -> None:
-        '''Display animal in Jupyter cell'''
+        '''Displays animal in Jupyter cell'''
 
         description = self.__get_description(
             PATH_TO_DESCRIPTION_HTML,
@@ -119,18 +119,41 @@ class Animal:
         display(HTML(description))
 
     def to_series(self) -> pd.Series:
-        '''Converting features to pandas.Series type'''
+        '''Converts features to pandas.Series type'''
         return self.__series
 
     def to_dict(self) -> dict:
-        '''Converting features to dict type'''
+        '''Converts features to dict type'''
         return self.__series.to_dict()
 
-def get_all_by(attribute: str, value: str, lang: str) -> Animal:
+def get_all_by(attribute: str,
+               value: str,
+               lang: str,
+               return_dataframe: bool = False) -> list[Animal] | pd.DataFrame:
+    
+    '''
+    Returns all animals with same attribute
 
+    Parameters:
+        attribute (str): attribute for filter (e.g. "kingdom", "class", "order")
+        value (str): value of attribute
+        lang (str): language of returned data
+        return_dataframe (bool) returns pandas.Dataframe if True else list[Animal]
+
+    Examples:
+        >>> from zoopy import animal
+
+        >>> chordates = animal.get_all_by('phylum', 'Хордовые')
+        >>> chordates[0].display()
+
+        >>> chordates = animal.get_all_by('phylum', 'Хордовые', True)
+        >>> chordates.head()
+    '''
 
     data_loader: data.DataLoader = data.DataLoader()
     animals_data = data_loader.get_all_by(attribute, value, lang)
 
-    #animals = [Animal(animal_['name'], lang, True) for animal_ in animals_data.iloc]
+    if return_dataframe:
+        return animals_data
+
     return animals_data['name'].progress_apply(lambda name: Animal(name, lang, True)).to_list()
