@@ -143,10 +143,10 @@ def get_all_by(attribute: str,
     Examples:
         >>> from zoopy import animal
 
-        >>> chordates = animal.get_all_by('phylum', 'Хордовые')
+        >>> chordates = animal.get_all_by('phylum', 'Хордовые', 'ru')
         >>> chordates[0].display()
 
-        >>> chordates = animal.get_all_by('phylum', 'Хордовые', True)
+        >>> chordates = animal.get_all_by('phylum', 'Хордовые', 'ru', True)
         >>> chordates.head()
     '''
 

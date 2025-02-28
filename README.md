@@ -5,14 +5,13 @@
 <p align="center">
     <img alt="python" src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
     <img alt="pandas" src="https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white"/>
-    <img alt="scikit-learn" src="https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white"/>
     <img alt="matplotlib" src="https://img.shields.io/badge/matplotlib-11557C?style=for-the-badge&logo=matplotlib&logoColor=white"/>
     <img alt="torch" src="https://img.shields.io/badge/Torch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white"/>
 </p>
 
 ## Overview
 **ZooPy** is a simple Python library with a concise API designed for analyzing and processing biological data related to animals. It provides tools for working with datasets, performing image recognition etc.
-<div align="center"><img src="img/turtle.png" style="border-radius: 20px"></div>
+<div align="center"><img src="img/turtle.png"></div>
 
 ## Data
 The data was collected from [Wikipedia](https://www.wikipedia.org/) and contains the languages:
@@ -38,7 +37,7 @@ cat = animal.Animal('кошка', 'ru')
 cat.display()
 ```
 
-<div align="center"><img src="img/cat-display.png" width=500px style="border-radius: 20px"></div>
+<div align="center"><img src="img/cat-display.png" width=500px></div>
 
 \
 ZooPy has interfaces for several pre-trained models, for example, ImageNet
@@ -52,7 +51,7 @@ img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 cv2.imshow(img)
 ```
 
-<div align="center"><img src="img/duck.jpg" width=500px style="border-radius: 20px"></div>
+<div align="center"><img src="img/duck.jpg" width=500px></div>
 
 ```python
 from zoopy import models
@@ -72,7 +71,7 @@ turtle = animal.Animal('черепаха', 'ru')
 viz.plot_classification(turtle)
 ```
 
-<div align="center"><img src="img/classification.png" width=500px style="border-radius: 20px"></div>
+<div align="center"><img src="img/classification.png" width=500px></div>
 
 For more information see [docs](docs/).
 

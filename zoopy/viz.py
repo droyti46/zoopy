@@ -18,7 +18,7 @@ from zoopy import animal
 def plot_classification(animal_for_plotting: animal.Animal) -> None:
 
     '''
-    Plots a hierarchical classification graph with rectangular nodes and arrows.
+    Plots a hierarchical classification graph
     
     Parameters:
         animal_for_plotting (zoopy.animal.Animal): an animal for plot classification
@@ -29,7 +29,7 @@ def plot_classification(animal_for_plotting: animal.Animal) -> None:
 
     # Vertical positions for nodes
     node_height = 0.4
-    node_width = 2.5
+    node_width = 20
     # Space between nodes for arrows
     arrow_length = 0.2
 
@@ -51,8 +51,9 @@ def plot_classification(animal_for_plotting: animal.Animal) -> None:
         ax.add_patch(rect)
 
         # Add text
-        ax.text(0, y + 0.05, taxon, ha='center', va='center', fontsize=10, fontfamily='sans-serif', weight='bold')
-        ax.text(0, y - 0.05, name, ha='center', va='center', fontsize=10, fontfamily='sans-serif')
+        indent = 0.08
+        ax.text(0, y + indent, taxon, ha='center', va='center', fontsize=10, fontfamily='sans-serif', weight='bold')
+        ax.text(0, y - indent, name, ha='center', va='center', fontsize=10, fontfamily='sans-serif')
 
         # Draw arrow (if not the last node)
         if i < len(classification) - 1:
