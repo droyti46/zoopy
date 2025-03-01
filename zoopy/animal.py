@@ -13,6 +13,8 @@ classes:
     Animal
 '''
 
+import importlib.resources
+
 import pandas as pd
 from IPython.display import display, HTML
 from tqdm import tqdm
@@ -21,8 +23,8 @@ from zoopy import data
 
 tqdm.pandas()
 
-PATH_TO_DESCRIPTION_TXT = 'zoopy/templates/description.txt'
-PATH_TO_DESCRIPTION_HTML = 'zoopy/templates/description.html'
+DESCRIPTION_TXT_NAME = 'description.txt'
+DESCRIPTION_HTML_NAME = 'description.html'
 
 ID_COLUMNS = ['ITIS', 'NCBI', 'EOL', 'FW']
 ADDITIONAL_COLUMNS = ['name', 'name_en', 'similarity']
@@ -66,7 +68,7 @@ class Animal:
         self.ids = self.__series[ID_COLUMNS].dropna().to_dict()
 
     def __get_description(self,
-                          file_path: str,
+                          file_name: str,
                           new_line_tag: str = '\n',
                           bold_tags: tuple[str] = ('', '')) -> str:
         
@@ -74,7 +76,7 @@ class Animal:
         Returns a string for output
 
         Parameters:
-            file_path (str): path to file
+            file_name (str): name of file
             new_line_tag (str), optinonal: tag for new_line (<br> in HTML or \n in String)
             bold_tags (tuple[str]), optional:
                 tag for bold words (('<b>', '</b>') in HTML)
@@ -83,7 +85,9 @@ class Animal:
             description (str): description of animal in text form
         '''
 
-        with open(file_path, 'r') as f:
+        with importlib.resources.files('zoopy.templates') \
+                                .joinpath(file_name) \
+                                .open('r', encoding='utf-8') as f:
             description = f.read()
         
         bold_tag1, bold_tag2 = bold_tags
@@ -105,14 +109,14 @@ class Animal:
         return description
 
     def __str__(self) -> str:
-        description = self.__get_description(PATH_TO_DESCRIPTION_TXT)
+        description = self.__get_description(DESCRIPTION_TXT_NAME)
         return description
     
     def display(self) -> None:
         '''Displays animal in Jupyter cell'''
 
         description = self.__get_description(
-            PATH_TO_DESCRIPTION_HTML,
+            DESCRIPTION_HTML_NAME,
             '<br>',
             ('<b>', '</b>')
         )
@@ -137,7 +141,7 @@ def get_all_by(attribute: str,
     Parameters:
         attribute (str): attribute for filter (e.g. "kingdom", "class", "order")
         value (str): value of attribute
-        lang (str): language of returned data
+        lang (str): language of the returned data
         return_dataframe (bool) returns pandas.Dataframe if True else list[Animal]
 
     Examples:

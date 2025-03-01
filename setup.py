@@ -1,11 +1,13 @@
 from setuptools import setup, find_packages
 
-with open('README.md', 'r', encoding='utf-8') as f:
+from zoopy import __version__
+
+with open('README_pypi.md', 'r', encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
     name='zoopy',
-    version='0.0',
+    version=__version__,
     author='Nikita Bakutov',
     author_email='nikitabakutov2008@gmail.com',
     description='A Python library for animal data analysis',
@@ -26,6 +28,8 @@ setup(
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',
     ],
-    python_requires=">=3.8",
+    python_requires='>=3.8',
+    license='MIT',
+    license_files='LICENSE',
     include_package_data=True,
 )

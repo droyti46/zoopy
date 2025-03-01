@@ -66,3 +66,4 @@ def plot_classification(animal_for_plotting: animal.Animal) -> None:
     ax.axis('off')
     plt.title(f'{animal_for_plotting.name} Classification', fontsize=15, pad=15)
     plt.show()
+    

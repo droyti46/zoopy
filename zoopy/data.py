@@ -13,12 +13,14 @@ classes:
     DataLoader
 '''
 
+import importlib.resources
+
 import pandas as pd
 import Levenshtein
 
 from zoopy import exceptions
 
-ANIMALS_DATASET_PATH = 'zoopy/datasets/animals_{}.csv'
+ANIMALS_DATASET_NAME = 'animals_{}.csv'
 SUPPORTED_LANGUAGES = ['ru']
 SIMILARITY_COLUMN = 'similarity'
 
@@ -98,7 +100,10 @@ class DataLoader:
             self.datasets[lang] = self.load_animals_dataset(lang)
 
     def load_animals_dataset(self, lang: str = 'ru') -> pd.DataFrame:
-        return pd.read_csv(ANIMALS_DATASET_PATH.format(lang))
+        with importlib.resources.files('zoopy.datasets') \
+                                .joinpath(ANIMALS_DATASET_NAME.format(lang)) \
+                                .open('r', encoding='utf-8') as f:
+            return pd.read_csv(f)
     
     def get_all_by(
             self,

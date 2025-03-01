@@ -1,0 +1,3 @@
+include zoopy/datasets/animals_ru.csv
+recursive-include zoopy/datasets *.csv *.txt
+recursive-include zoopy/templates *.html *.txt

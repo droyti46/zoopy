@@ -10,12 +10,14 @@ classes:
     ImageClassification
 '''
 
+import importlib.resources
+
 import numpy as np
 import torch
 import torchvision.transforms as transforms
 from torchvision.models import resnet50, ResNet50_Weights
 
-RESNET_CLASSES_LABELS_FILE = 'zoopy/datasets/imagenet_classes.txt'
+RESNET_CLASSES_LABELS_NAME = 'imagenet_classes.txt'
 
 class ImageClassification:
 
@@ -55,9 +57,10 @@ class ImageClassification:
 
     def _load_imagenet_labels(self) -> list[str]:
         # Load class labels ImageNet
-        with open(RESNET_CLASSES_LABELS_FILE) as f:
-            labels = [line.split(', ')[1].strip()
-                      for line in f.readlines()]
+        with importlib.resources.files('zoopy.datasets') \
+                                .joinpath(RESNET_CLASSES_LABELS_NAME) \
+                                .open('r', encoding='utf-8') as f:
+            labels = [line.split(', ')[1].strip() for line in f.readlines()]
         
         return labels
 
