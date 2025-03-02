@@ -51,7 +51,7 @@ def plot_classification(animal_for_plotting: animal.Animal) -> None:
         ax.add_patch(rect)
 
         # Add text
-        indent = 0.08
+        indent = 0.09
         ax.text(0, y + indent, taxon, ha='center', va='center', fontsize=10, fontfamily='sans-serif', weight='bold')
         ax.text(0, y - indent, name, ha='center', va='center', fontsize=10, fontfamily='sans-serif')
 
@@ -67,3 +67,5 @@ def plot_classification(animal_for_plotting: animal.Animal) -> None:
     plt.title(f'{animal_for_plotting.name} Classification', fontsize=15, pad=15)
     plt.show()
     
+def plot_geo(animal_for_plotting: animal.Animal) -> None:
+    pass
